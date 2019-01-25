@@ -130,14 +130,67 @@ namespace ClassicUO.Game.UI.Gumps
                     int gx = x - y;
                     int gy = x + y;
 
-                    batcher.Draw2D(_mobilesIndicator, new Rectangle(position.X + w + gx, position.Y + h + gy, 2, 2), ShaderHuesTraslator.GetHueVector(Notoriety.GetHue(mob.NotorietyFlag)) );
+                    batcher.Draw2D(_mobilesIndicator, new Rectangle(position.X + w + gx, position.Y + h + gy, 3, 3), ShaderHuesTraslator.GetHueVector(Notoriety.GetHue(mob.NotorietyFlag)) );
                 }
 
                 //DRAW DOT OF PLAYER
-                batcher.Draw2D(_playerIndicator, new Rectangle(position.X + w, position.Y + h, 2, 2), Vector3.Zero);
+                //batcher.Draw2D(_playerIndicator, new Rectangle(position.X + w, position.Y + h, 2, 2), Vector3.Zero);
+
+                DrawPlayerDirection(batcher, position.X + w, position.Y + h);
             }
 
             return base.Draw(batcher, position, hue);
+        }
+
+        protected void DrawPlayerDirection(Batcher2D batcher, int x, int y)
+        {
+            uint _gumpId = 0;
+            int _x = 0;
+            int _y = 5;
+
+            switch ((byte)World.Player.Direction)
+            {
+                case 0: // 9
+                    _gumpId = 0x8A;
+                    _x = 2;
+                    _y = 3;
+                    break;
+                case 1: // 6
+                    _gumpId = 0x8B;
+                    _x = 3;
+                    break;
+                case 2: // 3
+                    _gumpId = 0x8C;
+                    _x = 3;
+                    break;
+                case 3: // 2
+                    _gumpId = 0x8D;
+                    _x = 0;
+                    break;
+                case 4: // 1
+                    _gumpId = 0x8E;
+                    _x = -3;
+                    break;
+                case 5: // 4
+                    _gumpId = 0x8F;
+                    _x = -5;
+                    break;
+                case 6: // 7
+                    _gumpId = 0x90;
+                    _x = -3;
+                    _y = 3;
+                    break;
+                case 7: // 8
+                    _gumpId = 0x91;
+                    _x = 0;
+                    _y = 0;
+                    break;
+                default:
+                    break;
+            }
+
+            SpriteTexture g = FileManager.Gumps.GetTexture(_gumpId);
+            batcher.Draw2D(g, new Point(x + _x - 5, y + _y - 7), Vector3.Zero);
         }
 
         protected override bool OnMouseDoubleClick(int x, int y, MouseButton button)
