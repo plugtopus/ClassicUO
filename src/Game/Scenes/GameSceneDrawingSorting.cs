@@ -420,10 +420,10 @@ namespace ClassicUO.Game.Scenes
 
             if (_updateDrawPosition || oldDrawOffsetX != winDrawOffsetX || oldDrawOffsetY != winDrawOffsetY) _updateDrawPosition = true;
 
-            _minTile.X = realMinRangeX - 5;
-            _minTile.Y = realMinRangeY - 5;
-            _maxTile.X = realMaxRangeX + 5;
-            _maxTile.Y = realMaxRangeY + 5;
+            _minTile.X = realMinRangeX;
+            _minTile.Y = realMinRangeY;
+            _maxTile.X = realMaxRangeX;
+            _maxTile.Y = realMaxRangeY;
 
             _minPixel.X = minPixelsX;
             _minPixel.Y = minPixelsY;
