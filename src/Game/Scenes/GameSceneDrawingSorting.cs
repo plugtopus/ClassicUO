@@ -396,7 +396,7 @@ namespace ClassicUO.Game.Scenes
             if (maxBlockY >= FileManager.Map.MapsDefaultSize[World.Map.Index, 1])
                 maxBlockY = FileManager.Map.MapsDefaultSize[World.Map.Index, 1] - 1;
 
-            int drawOffset = (int) (Scale * 250);
+            int drawOffset = (int) (Scale * 40);
 
             float maxX = winGamePosX + winGameWidth + drawOffset;
             float maxY = winGamePosY + winGameHeight + drawOffset;
@@ -409,15 +409,11 @@ namespace ClassicUO.Game.Scenes
             int minPixelsY = (int)((winGamePosY - drawOffset) * Scale - (newMaxY + maxY));
             int maxPixlesY = (int)newMaxY;
 
-            Debug.WriteLine("[C] min = {0}x{1} max = {2}x{3}", minPixelsX, minPixelsY, maxPixelsX, maxPixlesY);
-
             // TODO2: временно убрал, увеличивать лучше через _minTile
             //minPixelsX = -75 + minPixelsX;
             //minPixelsY = -75 + minPixelsY;
             //maxPixelsX = 75 + maxPixelsX;
             //maxPixlesY = 350 + maxPixlesY;
-
-            Debug.WriteLine("[B] min = {0}x{1} max = {2}x{3}", minPixelsX, minPixelsY, maxPixelsX, maxPixlesY);
 
             if (_updateDrawPosition || oldDrawOffsetX != winDrawOffsetX || oldDrawOffsetY != winDrawOffsetY) _updateDrawPosition = true;
 
@@ -426,10 +422,16 @@ namespace ClassicUO.Game.Scenes
             _maxTile.X = realMaxRangeX;
             _maxTile.Y = realMaxRangeY;
 
+            _minPixel.X = minPixelsX - 25;
+            _minPixel.Y = minPixelsY - 25;
+            _maxPixel.X = maxPixelsX + 75;
+            _maxPixel.Y = maxPixlesY + 250;
+            /*
             _minPixel.X = minPixelsX;
             _minPixel.Y = minPixelsY;
             _maxPixel.X = maxPixelsX;
             _maxPixel.Y = maxPixlesY;
+            */
 
             Debug.WriteLine("min = {0}x{1} max = {2}x{3}", _minPixel.X, _minPixel.Y, _maxPixel.X, _maxPixel.Y);
 
