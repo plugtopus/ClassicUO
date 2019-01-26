@@ -411,6 +411,7 @@ namespace ClassicUO.Game.Scenes
 
             Debug.WriteLine("[C] min = {0}x{1} max = {2}x{3}", minPixelsX, minPixelsY, maxPixelsX, maxPixlesY);
 
+            // TODO2: временно убрал, увеличивать лучше через _minTile
             //minPixelsX = -75 + minPixelsX;
             //minPixelsY = -75 + minPixelsY;
             //maxPixelsX = 75 + maxPixelsX;
