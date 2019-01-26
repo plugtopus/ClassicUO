@@ -32,6 +32,8 @@ using ClassicUO.Utility;
 
 using Microsoft.Xna.Framework;
 
+using System.Diagnostics;
+
 using Multi = ClassicUO.Game.GameObjects.Multi;
 
 namespace ClassicUO.Game.Scenes
@@ -393,27 +395,42 @@ namespace ClassicUO.Game.Scenes
 
             if (maxBlockY >= FileManager.Map.MapsDefaultSize[World.Map.Index, 1])
                 maxBlockY = FileManager.Map.MapsDefaultSize[World.Map.Index, 1] - 1;
-            int drawOffset = (int) (Scale * 40.0);
+
+            int drawOffset = (int) (Scale * 250);
+
             float maxX = winGamePosX + winGameWidth + drawOffset;
             float maxY = winGamePosY + winGameHeight + drawOffset;
             float newMaxX = maxX * Scale;
             float newMaxY = maxY * Scale;
-            int minPixelsX = (int) ((winGamePosX - drawOffset) * Scale - (newMaxX + maxX));
-            int maxPixelsX = (int) newMaxX;
-            int minPixelsY = (int) ((winGamePosY - drawOffset) * Scale - (newMaxY + maxY));
-            int maxPixlesY = (int) newMaxY;
+
+            // TODO: временный фикс области подгрузки
+            int minPixelsX = (int)((winGamePosX - drawOffset) * Scale - (newMaxX + maxX));
+            int maxPixelsX = (int)newMaxX;
+            int minPixelsY = (int)((winGamePosY - drawOffset) * Scale - (newMaxY + maxY));
+            int maxPixlesY = (int)newMaxY;
+
+            Debug.WriteLine("[C] min = {0}x{1} max = {2}x{3}", minPixelsX, minPixelsY, maxPixelsX, maxPixlesY);
+
+            //minPixelsX = -75 + minPixelsX;
+            //minPixelsY = -75 + minPixelsY;
+            //maxPixelsX = 75 + maxPixelsX;
+            //maxPixlesY = 350 + maxPixlesY;
+
+            Debug.WriteLine("[B] min = {0}x{1} max = {2}x{3}", minPixelsX, minPixelsY, maxPixelsX, maxPixlesY);
+
             if (_updateDrawPosition || oldDrawOffsetX != winDrawOffsetX || oldDrawOffsetY != winDrawOffsetY) _updateDrawPosition = true;
 
-
-            _minTile.X = realMinRangeX;
-            _minTile.Y = realMinRangeY;
-            _maxTile.X = realMaxRangeX;
-            _maxTile.Y = realMaxRangeY;
+            _minTile.X = realMinRangeX - 5;
+            _minTile.Y = realMinRangeY - 5;
+            _maxTile.X = realMaxRangeX + 5;
+            _maxTile.Y = realMaxRangeY + 5;
 
             _minPixel.X = minPixelsX;
             _minPixel.Y = minPixelsY;
             _maxPixel.X = maxPixelsX;
             _maxPixel.Y = maxPixlesY;
+
+            Debug.WriteLine("min = {0}x{1} max = {2}x{3}", _minPixel.X, _minPixel.Y, _maxPixel.X, _maxPixel.Y);
 
             _offset.X = winDrawOffsetX;
             _offset.Y = winDrawOffsetY;
